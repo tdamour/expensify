@@ -1,0 +1,4 @@
+// adding redux 
+
+yarn add redux@3.7.2 
+

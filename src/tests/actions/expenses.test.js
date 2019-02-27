@@ -1,0 +1,59 @@
+import { addExpense, editExpense, removeExpense } from '../../actions/expenses';
+
+/* 
+  When using objects or arrays we want to use toEqual 
+  if you're using booleans, numbers or string we can continue to use to be. 
+*/ 
+// Remove Expense Test
+test('should setup remove expense action object', () => {
+  const action = removeExpense({id:'123abc'}); 
+  expect(action).toEqual({
+    type: 'REMOVE_EXPENSE',
+    id: '123abc'
+  });
+});
+
+// Edit Expense Test 
+test('should setup edit expense action object', () => {
+  const action = editExpense('123abc', {note: 'New note value'}); 
+  expect(action).toEqual({
+    type: 'EDIT_EXPENSE',
+    id: '123abc',
+    updates: {
+      note: 'New note value'
+    }
+  }); 
+}); 
+
+// Add Expense Tests
+test('should setup add expense action object with provided values', () => {
+  const expenseData = {
+    description: 'Rent', 
+    amount: 109500, 
+    createdAt: 1000, 
+    note: 'This was last months rent' 
+  };
+  // expect.any function in Jest 
+  const action = addExpense(expenseData); 
+  expect(action).toEqual({
+    type: 'ADD_EXPENSE', 
+    expense: {
+      ...expenseData, 
+      id: expect.any(String) 
+    }
+  }); 
+});
+
+test('should setup add expense action boject with default values', () => {
+  const action = addExpense(); 
+  expect(action).toEqual({
+    type: 'ADD_EXPENSE', 
+    expense: {
+      id: expect.any(String), 
+      description: '', 
+      note: '', 
+      amount: 0, 
+      createdAt: 0 
+    }
+  }); 
+});

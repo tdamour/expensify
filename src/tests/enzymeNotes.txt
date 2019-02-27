@@ -1,0 +1,5 @@
+yarn add enzyme@3.0.0 
+enzyme-adapter-react-16@1.0.0
+// polyfill for a browser feature known as a 
+// request animation frame
+// raf@3.3.2
