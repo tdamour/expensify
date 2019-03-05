@@ -1,4 +1,6 @@
 const path  = require('path'); 
+// const ExtractTextPlugin = require('extract-text-webpack-plugin'); 
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'); 
 
 // Webpack.config.js file
 // you must create this file in the root of the project folder, because that's where
@@ -23,6 +25,8 @@ const path  = require('path');
 module.exports = (env) => {
   const isProduction = env === 'production'; 
 
+  const CSSExtract = new MiniCssExtractPlugin({ filename: 'styles.css' }); 
+
   console.log('env', env); 
   return{
   entry: './src/app.js',
@@ -38,19 +42,32 @@ module.exports = (env) => {
     },{
       test: /\.s?css$/,
       use: [
-        'style-loader',
-        'css-loader',
-        'sass-loader'
+          MiniCssExtractPlugin.loader,
+          {
+              loader: 'css-loader',
+              options: {
+                  sourceMap: true
+              }
+          },
+          {
+              loader: 'sass-loader',
+              options: {
+                  sourceMap: true
+              }
+          }
       ]
-    }]
-  },
-  devtool: isProduction  ? 'source-map' : 'cheap-module-eval-source-map',
+     }],
+  plugins:[
+    CSSExtract
+  ],
+  devtool: isProduction  ? 'source-map' : 'inline-source-map',
   devServer:{
     contentBase:path.join(__dirname, 'public'), 
     historyApiFallback:true
   }
  }
-}; 
+}
+};
 
 // loader
 // a loader lets you customize the behavior of webpack 
