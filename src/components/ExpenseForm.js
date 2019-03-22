@@ -2,8 +2,8 @@ import React from 'react';
 import moment from 'moment'; 
 import { SingleDatePicker } from 'react-dates'; 
 
-const now = moment(); 
-console.log(now.format('MMM Do, YYYY')); 
+//const now = moment(); 
+//console.log(now.format('MMM Do, YYYY')); 
 
 // setup note state
 // setup onChange and value for textarea. 
@@ -41,11 +41,10 @@ export default class ExpenseForm extends React.Component{
   }; 
 
   onDateChange = (createdAt) => {
-    if(createdAt)
-    {
+    if(createdAt) {
       this.setState(() => ({createdAt})); 
     }
-  }
+  };
 
   onFocusChange = ({focused}) =>{
     this.setState(() => ({ calendarFocused: focused })); 
@@ -57,13 +56,14 @@ export default class ExpenseForm extends React.Component{
     if(!this.state.description || !this.state.amount){
       // Set error state equal to 'Please provide description and amount 
       this.setState(() => ({error: 'Please provide description and amount.'})); 
-    }
-    else{
+    } 
+    else 
+    {
       // Clear the error 
-      this.setState(() => ({ error: '' })); 
+      this.setState(() => ({ error: '' }));
       this.props.onSubmit({
         description: this.state.description,
-        amount: parseFloat(this.state.amount, 10) * 100, 
+        amount: parseFloat(this.state.amount, 10) * 100,
         createdAt: this.state.createdAt.valueOf(),
         note: this.state.note
       });
@@ -99,8 +99,8 @@ export default class ExpenseForm extends React.Component{
               <textarea
               placeholder="Add a note for your expense (optional)"
               value={this.state.note}
-              onChange={this.onNoteChange}>
-              
+              onChange={this.onNoteChange}
+              >
               </textarea>
               <button>Add Expense</button>
         </form>
